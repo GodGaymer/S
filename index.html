@@ -14,15 +14,18 @@
   </style>
 </head>
 <body>
-  <form id="submit-form">
-    <input type="text" id="username" name="username" placeholder="Username" required>
-    <input type="text" id="request" name="request" placeholder="Request" required>
-    <input type="submit" value="Submit">
-  </form>
+  <div id="chat-container">
+    <div id="chat-messages"></div>
+    <form id="submit-form">
+      <input type="text" id="chat-input" name="chat-input" placeholder="Type your message..." required>
+      <input type="submit" value="Send">
+    </form>
+  </div>
   
   <div id="successMessage" class="success-message" style="display: none;">
     Form submitted successfully!
   </div>
+
 
   <script>
     // Your web app's Firebase configuration
@@ -33,26 +36,27 @@
       projectId: "s2323s",
       storageBucket: "s2323s.appspot.com",
       messagingSenderId: "196606960554",
-      appId: "YOUR_APP_ID"
+      appId: "1:196606960554:web:26ede2e17600d0c41301d3",
     };
-    // Initialize Firebase
+   // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+    var chatMessages = document.getElementById('chat-messages');
+    var chatInput = document.getElementById('chat-input');
 
     document.getElementById('submit-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
-      // get the username and request field value
-      var username = event.target.username.value;
-      var request = event.target.request.value;
+      // get the chat input value
+      var chatMessage = chatInput.value;
 
       // save the data
       firebase.database().ref('submissions').push({
-        username: username,
-        request: request
+        message: chatMessage
       });
 
-      // reset the form
-      event.target.reset();
+      // reset the chat input
+      chatInput.value = '';
 
       showSuccessMessage();
     });
@@ -61,6 +65,14 @@
       var successMessage = document.getElementById('successMessage');
       successMessage.style.display = 'block';
     }
+
+    // listen for new chat messages
+    firebase.database().ref('submissions').on('child_added', function(snapshot) {
+      var chatMessage = snapshot.val().message;
+      var messageElement = document.createElement('div');
+      messageElement.innerText = chatMessage;
+      chatMessages.appendChild(messageElement);
+    });
   </script>
 </body>
 </html>
