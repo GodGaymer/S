@@ -9,23 +9,19 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
     .success-message {
-      color: green;
+        color: green;
     }
   </style>
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-messages"></div>
-    <form id="submit-form">
-      <input type="text" id="chat-input" name="chat-input" placeholder="Type your message..." required>
-      <input type="submit" value="Send">
-    </form>
-  </div>
+  <form id="submit-form">
+    <input type="text" id="input" name="input" placeholder="Username" required>
+    <input type="submit" value="Submit">
+  </form>
   
   <div id="successMessage" class="success-message" style="display: none;">
-    Form submitted successfully!
+      Form submitted successfully!
   </div>
-
 
   <script>
     // Your web app's Firebase configuration
@@ -38,41 +34,40 @@
       messagingSenderId: "196606960554",
       appId: "1:196606960554:web:26ede2e17600d0c41301d3",
     };
-   // Initialize Firebase
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-    var chatMessages = document.getElementById('chat-messages');
-    var chatInput = document.getElementById('chat-input');
-
+    var username;
+    var inputElement = document.getElementById('input');
+    
     document.getElementById('submit-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
-      // get the chat input value
-      var chatMessage = chatInput.value;
+      // If username is undefined, set username
+      if (!username) {
+        username = inputElement.value;
+        inputElement.placeholder = 'Request';
+        inputElement.value = '';  // Clear the input field
+      } else {
+        // save the data
+        firebase.database().ref('submissions').push({
+          username: username,
+          request: inputElement.value
+        });
 
-      // save the data
-      firebase.database().ref('submissions').push({
-        message: chatMessage
-      });
+        // reset the form
+        event.target.reset();
+        inputElement.placeholder = 'Username';
+        username = undefined;
 
-      // reset the chat input
-      chatInput.value = '';
-
-      showSuccessMessage();
+        showSuccessMessage();
+      }
     });
 
     function showSuccessMessage() {
       var successMessage = document.getElementById('successMessage');
       successMessage.style.display = 'block';
     }
-
-    // listen for new chat messages
-    firebase.database().ref('submissions').on('child_added', function(snapshot) {
-      var chatMessage = snapshot.val().message;
-      var messageElement = document.createElement('div');
-      messageElement.innerText = chatMessage;
-      chatMessages.appendChild(messageElement);
-    });
   </script>
 </body>
 </html>
