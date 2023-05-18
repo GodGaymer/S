@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Website with Submission Capabilities</title>
+  <!-- Add the Firebase JavaScript Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <!-- Add the CSS Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    .success-message {
+        color: green;
+    }
+  </style>
+</head>
+<body>
+  <form id="submit-form">
+    <input type="text" id="username" name="username" placeholder="Username" required>
+    <input type="text" id="request" name="request" placeholder="Request" required>
+    <input type="submit" value="Submit">
+  </form>
+  
+  <div id="successMessage" class="success-message" style="display: none;">
+      Form submitted successfully!
+  </div>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    document.getElementById('submit-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // get the username and request field value
+      var username = event.target.username.value;
+      var request = event.target.request.value;
+
+      // save the data
+      firebase.database().ref('submissions').push({
+        username: username,
+        request: request
+      });
+
+      // reset the form
+      event.target.reset();
+
+      showSuccessMessage();
+    });
+
+    function showSuccessMessage() {
+      var successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
