@@ -8,14 +8,12 @@
   <!-- Add the CSS Stylesheet -->
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
-    .success-message {
-        color: green;
-    }
+    /* Add your custom CSS here */
   </style>
 </head>
 <body>
   <form id="submit-form">
-    <input type="text" id="input" name="input" placeholder="Username" required>
+    <input type="text" id="input" name="input" placeholder="Key Code" required>
     <input type="submit" value="Submit">
   </form>
   
@@ -26,25 +24,32 @@
   <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
-      apiKey: "AIzaSyB_glUOrHeejrCcKZOB6_OGlCcufaF1tLY",
-      authDomain: "s2323s.firebaseapp.com",
-      databaseURL: "https://s2323s-default-rtdb.firebaseio.com",
-      projectId: "s2323s",
-      storageBucket: "s2323s.appspot.com",
-      messagingSenderId: "196606960554",
-      appId: "1:196606960554:web:26ede2e17600d0c41301d3",
+      /* Your Firebase configuration here */
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
+    var keycode;
     var username;
     var inputElement = document.getElementById('input');
+    var validKeyCodes = ["KEY1", "KEY2", "KEY3"];  // Replace with your actual key codes
     
     document.getElementById('submit-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
-      // If username is undefined, set username
-      if (!username) {
+      if (!keycode) {
+        // If keycode is not set, set keycode
+        keycode = inputElement.value;
+        if (!validKeyCodes.includes(keycode)) {
+          alert("Invalid key code!");
+          keycode = null;
+          return;
+        } else {
+          inputElement.placeholder = 'Username';
+          inputElement.value = '';  // Clear the input field
+        }
+      } else if (!username) {
+        // If username is not set, set username
         username = inputElement.value;
         inputElement.placeholder = 'Request';
         inputElement.value = '';  // Clear the input field
@@ -57,8 +62,9 @@
 
         // reset the form
         event.target.reset();
-        inputElement.placeholder = 'Username';
-        username = undefined;
+        inputElement.placeholder = 'Key Code';
+        keycode = null;
+        username = null;
 
         showSuccessMessage();
       }
