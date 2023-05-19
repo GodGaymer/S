@@ -1,13 +1,56 @@
 body {
+  text-align: center;
   font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); /* a more fancy background gradient */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #222;
+  color: #FFF;
+  padding: 20px;
   height: 100vh;
+}
+
+header {
+  padding: 10px;
+  text-align: center;
+  background: linear-gradient(to right, #ff7e5f , #feb47b); /* Sunset gradient color */
+  color: white;
+  font-size: 30px;
+}
+
+nav {
+  margin: 15px 0;
+  background-color: #FFF;
+  color: #000;
+}
+
+nav ul {
+  padding: 0;
+  list-style-type: none;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #000;
+  text-decoration: none;
+}
+
+main {
+  background-color: #333;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.back-button {
+  color: #FFF;
+  text-decoration: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 2em; /* Increase the size of the button */
+  padding: 10px; /* Add some padding to the button */
 }
 
 form {
@@ -16,39 +59,48 @@ form {
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 500px; /* make the form wider */
-  text-align: center; /* center text and form fields */
+  width: 500px;
+  text-align: center;
 }
 
-input[type="text"] {
+input[type="text"], input[type="submit"] {
   width: 100%;
-  padding: 20px; /* make the text input taller */
+  padding: 25px; /* Increase padding */
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 18px; /* increase font size */
+  font-size: 20px; /* Increase font size */
   box-sizing: border-box;
 }
 
 input[type="submit"] {
-  width: 100%;
-  padding: 20px; /* make the button taller */
-  background-color: #007BFF;
+  background: linear-gradient(to right, #ff7e5f , #feb47b); /* Sunset gradient color */
   color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 18px; /* increase font size */
-  transition: background-color 0.3s ease; /* add transition for smooth color change */
+  transition: background-color 0.3s ease;
 }
 
 input[type="submit"]:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to right, #cc6e57 , #d99371); /* Darken the sunset gradient color */
 }
 
 .success-message {
   color: green;
-  font-size: 20px; /* make success message font bigger */
+  font-size: 20px;
   text-align: center;
   margin-top: 20px;
+}
+
+#item-catalogue, #item-submission, #recent-trades {
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+h2 {
+  text-align: center;
+  color: linear-gradient(to right, #ff7e5f , #feb47b); /* Sunset gradient color */
 }

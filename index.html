@@ -5,17 +5,24 @@
   <!-- Add the Firebase JavaScript Libraries -->
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <!-- Add the CSS Stylesheet -->
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <style>
-    /* Add your custom CSS here */
-  </style>
+  <link rel="stylesheet" type="text/css" href="style2.css">
 </head>
 <body>
-  <form id="submit-form">
-    <input type="text" id="input" name="input" placeholder="Key Code" required>
-    <input type="submit" value="Submit">
-  </form>
+  <a class="back-button" href="home.html" style="display:block;text-align:center;font-size:1.5em;margin-bottom:1em;">&#8592; Back to Home</a>
+
+  <div id="item-submission">
+    <h2>Submit an Item for Trade</h2>
+    <form id="submit-form">
+      <input type="text" id="input" name="input" placeholder="Key Code" required>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <div id="contact-info">
+    <h2>If you have any questions, message user "GodGaymer" on MC!</h2>
+  </div>
   
   <div id="successMessage" class="success-message" style="display: none;">
       Form submitted successfully!

@@ -1,0 +1,45 @@
+body {
+    padding-top: 60px; /* Create some space at the top of the page for the Back button */
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    font-family: 'Roboto', sans-serif; /* Set the font to Roboto */
+    font-size: 18px; /* Increase the general font-size for better readability */
+  }
+  
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px; /* Slightly increase the font size of the back button */
+  }
+  
+  #submit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form contents vertically */
+    justify-content: center; /* Center the form contents horizontally */
+  }
+  
+  #submit-form input[type="text"], #submit-form input[type="submit"] {
+    margin-bottom: 10px;
+    width: 100%; /* Make the inputs take up the full width of the form */
+    max-width: 300px; /* But don't let them get too wide */
+    font-size: 16px; /* Set the font size of the input fields */
+  }
+  
+  #item-catalogue, #item-submission, #recent-trades {
+    background: linear-gradient(to right, #ff7e5f , #feb47b); /* Sunset color scheme */
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 20px; /* Some space between the elements */
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 24px; /* Make the headers larger */
+    font-weight: 500; /* And a bit bolder */
+  }
+  
