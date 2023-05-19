@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Recent Trades</title>
+  <link rel="stylesheet" type="text/css" href="style2.css">
+</head>
+<body>
+    <a class="back-button" href="home.html" style="display:block;text-align:center;font-size:1.5em;margin-bottom:1em;">&#8592; Back to Home</a> 
+  <h1>Recent Trades</h1>
+  
+  <div id="recent-trades">
+    <h2>Recent Trade Requests</h2>
+    <ul id="trade-list"></ul>
+  </div>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyB_glUOrHeejrCcKZOB6_OGlCcufaF1tLY",
+      authDomain: "s2323s.firebaseapp.com",
+      databaseURL: "https://s2323s-default-rtdb.firebaseio.com",
+      projectId: "s2323s",
+      storageBucket: "s2323s.appspot.com",
+      messagingSenderId: "196606960554",
+      appId: "1:196606960554:web:26ede2e17600d0c41301d3",
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Reference to the 'submissions' collection in Firebase
+    var submissionsRef = firebase.database().ref('submissions');
+
+    // Listen for new child added events on 'submissions' collection
+    submissionsRef.on('child_added', function(snapshot) {
+      var submission = snapshot.val();
+
+      // Create a new list item element for each submission
+      var listItem = document.createElement('li');
+      listItem.textContent = submission.request;
+
+      // Append the list item to the trade list
+      var tradeList = document.getElementById('trade-list');
+      tradeList.appendChild(listItem);
+    });
+  </script>
+</body>
+</html>
