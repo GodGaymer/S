@@ -16,7 +16,7 @@
     </form>
   </div>
   <div id="contact-info">
-    <h2>If you have any questions, message user "GodGaymer" on MC!
+    <h2>If you have any questions, message user "GodGaymer" on MC!</h2>
   </div>
   
   <div id="successMessage" class="success-message" style="display: none;">
@@ -41,6 +41,7 @@
     var username;
     var inputElement = document.getElementById('input');
     var validKeyCodes = ["KEY1", "KEY2", "KEY3"];  // Replace with your actual key codes
+    var usedKeyCodes = [];  // This is where we'll store the used keys
     
     document.getElementById('submit-form').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -48,11 +49,12 @@
       if (!keycode) {
         // If keycode is not set, set keycode
         keycode = inputElement.value;
-        if (!validKeyCodes.includes(keycode)) {
-          alert("Invalid key code!");
+        if (!validKeyCodes.includes(keycode) || usedKeyCodes.includes(keycode)) {
+          alert("Invalid or already used key code!");
           keycode = null;
           return;
         } else {
+          usedKeyCodes.push(keycode);  // Add the used keycode to the usedKeyCodes array
           inputElement.placeholder = 'Username';
           inputElement.value = '';  // Clear the input field
         }
@@ -80,7 +82,7 @@
 
     function showSuccessMessage() {
       var successMessage = document.getElementById('successMessage');
-      successMessage.style.display = 'block';
+      successMessage.style.display='block';
     }
   </script>
 </body>
