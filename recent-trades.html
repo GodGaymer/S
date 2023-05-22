@@ -42,9 +42,9 @@
       var listItem = document.createElement('li');
       listItem.textContent = submission.request;
 
-      // Append the list item to the trade list
+      // Prepend the list item to the trade list
       var tradeList = document.getElementById('trade-list');
-      tradeList.appendChild(listItem);
+      tradeList.prepend(listItem); // Changed this line
     });
   </script>
 </body>
