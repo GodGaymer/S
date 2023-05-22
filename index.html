@@ -37,11 +37,11 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
+    var db = firebase.database();
     var keycode;
     var username;
     var inputElement = document.getElementById('input');
-    var validKeyCodes = ["Gh8GIe", "oiouYn", "14SlAA", "god", "rFFrEn", "Purolg", "aKEmWo", "CnSwPl"];  // Replace with your actual key codes
-    var usedKeyCodes = [];  // This is where we'll store the used keys
+    var validKeyCodes = ["Gh8GIe", "oiouYn", "14SlAA"];  // Replace with your actual key codes
     
     document.getElementById('submit-form').addEventListener('submit', function(event) {
       event.preventDefault();
@@ -49,14 +49,21 @@
       if (!keycode) {
         // If keycode is not set, set keycode
         keycode = inputElement.value;
-        if (!validKeyCodes.includes(keycode) || usedKeyCodes.includes(keycode)) {
-          alert("Invalid or already used key code!");
+        if (!validKeyCodes.includes(keycode)) {
+          alert("Invalid key code!");
           keycode = null;
           return;
         } else {
-          usedKeyCodes.push(keycode);  // Add the used keycode to the usedKeyCodes array
-          inputElement.placeholder = 'Username';
-          inputElement.value = '';  // Clear the input field
+          db.ref('usedKeyCodes/' + keycode).once('value').then(function(snapshot) {
+            if (snapshot.exists()) {
+              alert("Key code already used!");
+              keycode = null;
+            } else {
+              db.ref('usedKeyCodes/' + keycode).set(true);
+              inputElement.placeholder = 'Username';
+              inputElement.value = '';  // Clear the input field
+            }
+          });
         }
       } else if (!username) {
         // If username is not set, set username
@@ -66,6 +73,7 @@
       } else {
         // save the data
         firebase.database().ref('submissions').push({
+          keycode: keycode,
           username: username,
           request: inputElement.value
         });
@@ -75,15 +83,10 @@
         inputElement.placeholder = 'Key Code';
         keycode = null;
         username = null;
-
-        showSuccessMessage();
       }
     });
 
-    function showSuccessMessage() {
-      var successMessage = document.getElementById('successMessage');
-      successMessage.style.display='block';
-    }
+
   </script>
 </body>
 </html>
